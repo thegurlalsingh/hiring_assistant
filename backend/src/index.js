@@ -11,6 +11,19 @@ import codingRoutes from './routes/codingRoutes.js'
 dotenv.config();
 
 const app = express();
+// At the top of src/index.js
+const gcpKeyPath = process.env.GCP_KEY_PATH || '/app/keys/gcp-key.json';
+
+// Use it in all GCP clients
+const storage = new Storage({
+  projectId: process.env.GCP_PROJECT_ID,
+  keyFilename: gcpKeyPath,
+});
+
+const speechClient = new speech.SpeechClient({
+  keyFilename: gcpKeyPath,
+});
+
 
 app.use(cors());
 app.use(helmet());
@@ -26,6 +39,7 @@ app.use('/api/user', userRoutes, limiter);
 app.use('/api/mcq', mcqRoutes);
 app.use('/api/video', videoRoutes);
 app.use('/api/coding', codingRoutes);
+
 
 
 app.get('/', (req, res) => {
