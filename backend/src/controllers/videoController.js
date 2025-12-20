@@ -11,7 +11,7 @@ import { assessAnswer } from '../services/assessAnswer.js';
 
 const storage = new Storage({
   projectId: process.env.GCP_PROJECT_ID,
-  keyFilename: process.env.GCP_KEY_FILE,
+  keyFilename: process.env.GCP_KEY_FILE || '/app/keys/gcp-key.json',
 });
 const bucket = storage.bucket(process.env.GCP_BUCKET);
 
