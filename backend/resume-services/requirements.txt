@@ -1,0 +1,4 @@
+fastapi
+uvicorn[standard]
+torch==2.3.0  # or latest compatible
+transformers
