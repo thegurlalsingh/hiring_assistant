@@ -1,14 +1,11 @@
-# Use official Node image with Python pre-installed
-FROM python:3.11-slim
-
-# Install Node.js 20
-RUN apt-get update && apt-get install -y curl && \
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+FROM node:20-alpine
 
 WORKDIR /app
 
+# Install Python and pip
+RUN apk add --no-cache python3 py3-pip
+
+# Install pdfplumber (for PDF text extraction)
 RUN pip3 install pdfplumber moviepy os-sys
 
 # Copy package files
@@ -18,7 +15,7 @@ RUN npm ci --only=production
 # Copy source code
 COPY . .
 
-# Create keys directory for GCP
+# Create keys directory
 RUN mkdir -p /app/keys
 
 EXPOSE 5050
