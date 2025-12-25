@@ -64,57 +64,57 @@ export const uploadResume = (req, res) => {
         rawText: text.substring(0, 500) + "..." // optional preview
       });
 
-      await User.findByIdAndUpdate(
-        userId,
-        {
-          // Basic info
-          name: parsed.name || user.name,
-          phone: parsed.phone || user.phone || "",
-          location: parsed.location || user.location || "",
+      // await User.findByIdAndUpdate(
+      //   userId,
+      //   {
+      //     // Basic info
+      //     name: parsed.name || user.name,
+      //     phone: parsed.phone || user.phone || "",
+      //     location: parsed.location || user.location || "",
 
-          // Current role & applied role
-          designation: parsed.designation || parsed.Designation?.[0] || "",
-          appliedFor: parsed.appliedFor || parsed.Designation?.[0] || "Software Engineer",
+      //     // Current role & applied role
+      //     designation: parsed.designation || parsed.Designation?.[0] || "",
+      //     appliedFor: parsed.appliedFor || parsed.Designation?.[0] || "Software Engineer",
 
-          // Experience
-          experience: parsed.experience || parsed["Years of Experience"] || "",
+      //     // Experience
+      //     experience: parsed.experience || parsed["Years of Experience"] || "",
 
-          // Skills (array)
-          skills: Array.isArray(parsed.skills)
-            ? parsed.skills
-            : (parsed.Skills || []),
+      //     // Skills (array)
+      //     skills: Array.isArray(parsed.skills)
+      //       ? parsed.skills
+      //       : (parsed.Skills || []),
 
-          // Companies (just names, for quick search/filter)
-          companies: Array.isArray(parsed.companies)
-            ? parsed.companies
-            : (parsed["Companies worked at"] || []),
+      //     // Companies (just names, for quick search/filter)
+      //     companies: Array.isArray(parsed.companies)
+      //       ? parsed.companies
+      //       : (parsed["Companies worked at"] || []),
 
-          // Full experience timeline (rich data)
-          experienceTimeline: Array.isArray(parsed.experienceTimeline)
-            ? parsed.experienceTimeline.map(exp => ({
-              title: exp.title || exp.designation || "",
-              company: exp.company || "",
-              duration: exp.duration || exp.years || ""
-            })).filter(e => e.company)
-            : [],
+      //     // Full experience timeline (rich data)
+      //     experienceTimeline: Array.isArray(parsed.experienceTimeline)
+      //       ? parsed.experienceTimeline.map(exp => ({
+      //         title: exp.title || exp.designation || "",
+      //         company: exp.company || "",
+      //         duration: exp.duration || exp.years || ""
+      //       })).filter(e => e.company)
+      //       : [],
 
-          // Education
-          degree: Array.isArray(parsed.degree)
-            ? parsed.degree
-            : (parsed.Degree ? [parsed.Degree] : []),
+      //     // Education
+      //     degree: Array.isArray(parsed.degree)
+      //       ? parsed.degree
+      //       : (parsed.Degree ? [parsed.Degree] : []),
 
-          college: Array.isArray(parsed.college)
-            ? parsed.college
-            : (parsed["College Name"] ? [parsed["College Name"]] : []),
+      //     college: Array.isArray(parsed.college)
+      //       ? parsed.college
+      //       : (parsed["College Name"] ? [parsed["College Name"]] : []),
 
-          // Resume URL
-          resumeUrl: resumeUrl,
+      //     // Resume URL
+      //     resumeUrl: resumeUrl,
 
-          // Auto-advance after resume upload + parsing
-          currentStep: "mcq"
-        },
-        { new: true, upsert: false }
-      );
+      //     // Auto-advance after resume upload + parsing
+      //     currentStep: "mcq"
+      //   },
+      //   { new: true, upsert: false }
+      // );
 
     } catch (error) {
       console.error("Resume processing error:", error);
@@ -126,4 +126,6 @@ export const uploadResume = (req, res) => {
     }
   });
 };
+
+
 
