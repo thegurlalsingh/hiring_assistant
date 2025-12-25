@@ -4,3 +4,4 @@ torch==2.3.0  # or latest compatible
 transformers
 pdfplumber
 moviepy
+os-sys
