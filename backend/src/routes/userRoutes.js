@@ -1,5 +1,5 @@
 import express from 'express';
-import { login, saveBasicInfo } from '../controllers/userController.js';
+import { login, saveProfile } from '../controllers/userController.js';
 import { verifyToken } from '../middlewares/authMiddleware.js';
 import { uploadResume } from "../controllers/resumeController.js"
 // import { isHR } from '../middlewares/authMiddleware.js';
@@ -22,5 +22,7 @@ router.get('/me', verifyToken, async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 });
+
+router.post('/save-profile', verifyToken, saveProfile);
 
 export default router;
