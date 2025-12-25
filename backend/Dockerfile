@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install -y curl && \
 
 WORKDIR /app
 
+RUN pip3 install pdfplumber moviepy os-sys
+
 # Copy package files
 COPY package*.json ./
 RUN npm ci --only=production
